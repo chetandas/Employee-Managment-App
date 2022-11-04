@@ -3,13 +3,17 @@ import React, { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import swal from 'sweetalert';
 export default function Addemployee() {
-    let navigate=useNavigate();
-    const [fname, setfname] = useState("");
-    const [lname, setlname] = useState("");
-    const [em, setemail] = useState("");
+    let navigate=useNavigate();// for redirecting to other page we use usenavigate
+    const [fname, setfname] = useState("");//this is for firstname initially firstname is empty string
+    const [lname, setlname] = useState("");//this is for lastname initially lastname is empty string
+    const [em, setemail] = useState("");//this is for email initially email is empty string
 
+
+    //when user clicks on submit we call this function
+    //make it async bcoz axios is asynchronous and we r using await inside
     const onsubmit=async(e) => {
-        e.preventDefault();
+        e.preventDefault();//we use this bcoz when we submit the form the browser will perform some default action
+        //and the url is changed so we dont want that
         const mydata={
             firstname:fname,
             lastname:lname,
@@ -19,8 +23,9 @@ export default function Addemployee() {
         const res=await axios.post("http://localhost:8080/employees",mydata);
         console.log("data added successfully");
         console.log(res.status);
-        if(res.status === 200)
+        if(res.status === 200)//if the response status is successfull
         {
+            // then use sweet alerts
             swal({
                 title: "Good job!",
                 text: "Employee Details Added Successfully!",
